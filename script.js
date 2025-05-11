@@ -31,22 +31,45 @@ document.addEventListener('DOMContentLoaded', () => {
       const damageMax = document.getElementById('damage-max').value;
       const motto = document.getElementById('motto').value;
       const abilities = document.getElementById('abilities').value;
-      const imageUrl = document.getElementById('image-url').value || 'https://via.placeholder.com/150';
+      const imageFile = document.getElementById('image').files[0];
 
-      const character = {
-        name,
-        hp,
-        attack: `${attackMin}-${attackMax}`,
-        damage: `${damageMin}-${damageMax}`,
-        motto,
-        abilities,
-        image: imageUrl,
-      };
-
-      characters.push(character);
-      localStorage.setItem('characters', JSON.stringify(characters));
-      console.log('Character saved:', character);
-      window.location.href = 'index.html';
+      if (!imageFile) {
+        const character = {
+          name,
+          hp,
+          attack: `${attackMin}-${attackMax}`,
+          damage: `${damageMin}-${damageMax}`,
+          motto,
+          abilities,
+          image: 'https://via.placeholder.com/150', // Fallback image
+        };
+        characters.push(character);
+        localStorage.setItem('characters', JSON.stringify(characters));
+        console.log('Character saved:', character);
+        window.location.href = './index.html';
+      } else {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const character = {
+            name,
+            hp,
+            attack: `${attackMin}-${attackMax}`,
+            damage: `${damageMin}-${damageMax}`,
+            motto,
+            abilities,
+            image: reader.result,
+          };
+          characters.push(character);
+          localStorage.setItem('characters', JSON.stringify(characters));
+          console.log('Character saved:', character);
+          window.location.href = './index.html';
+        };
+        reader.onerror = () => {
+          console.error('Error reading image file');
+          alert('Ошибка при загрузке изображения!');
+        };
+        reader.readAsDataURL(imageFile);
+      }
     });
   }
 
@@ -60,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (character) {
       document.getElementById('edit-index').value = index;
       document.getElementById('name').value = character.name;
-      document.getElementById('image-url').value = character.image;
       document.getElementById('hp').value = character.hp;
       document.getElementById('attack-min').value = character.attack.split('-')[0];
       document.getElementById('attack-max').value = character.attack.split('-')[1];
@@ -83,20 +105,37 @@ document.addEventListener('DOMContentLoaded', () => {
       const damageMax = document.getElementById('damage-max').value;
       const motto = document.getElementById('motto').value;
       const abilities = document.getElementById('abilities').value;
-      const imageUrl = document.getElementById('image-url').value || 'https://via.placeholder.com/150';
+      const imageFile = document.getElementById('image').files[0];
 
-      characters[index] = {
-        name,
-        hp,
-        attack: `${attackMin}-${attackMax}`,
-        damage: `${damageMin}-${damageMax}`,
-        motto,
-        abilities,
-        image: imageUrl,
+      const updateCharacter = () => {
+        characters[index] = {
+          name,
+          hp,
+          attack: `${attackMin}-${attackMax}`,
+          damage: `${damageMin}-${damageMax}`,
+          motto,
+          abilities,
+          image: characters[index].image, // Keep old image if no new one
+        };
+        localStorage.setItem('characters', JSON.stringify(characters));
+        console.log('Character updated:', characters[index]);
+        window.location.href = './index.html';
       };
-      localStorage.setItem('characters', JSON.stringify(characters));
-      console.log('Character updated:', characters[index]);
-      window.location.href = 'index.html';
+
+      if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          characters[index].image = reader.result;
+          updateCharacter();
+        };
+        reader.onerror = () => {
+          console.error('Error reading image file');
+          alert('Ошибка при загрузке изображения!');
+        };
+        reader.readAsDataURL(imageFile);
+      } else {
+        updateCharacter();
+      }
     });
 
     // Handle delete button
@@ -105,10 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Delete button clicked');
         if (confirm('Вы уверены, что хотите удалить этого персонажа?')) {
           const index = document.getElementById('edit-index').value;
-          characters.splice(index, 1); // Remove character
+          characters.splice(index, 1);
           localStorage.setItem('characters', JSON.stringify(characters));
           console.log('Character deleted at index:', index);
-          window.location.href = 'index.html';
+          window.location.href = './index.html';
         }
       });
     }
@@ -153,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       card.querySelector('.edit-btn').addEventListener('click', () => {
         console.log('Edit button clicked for index', index);
-        window.location.href = `edit.html?index=${index}`;
+        window.location.href = './edit.html?index=' + index;
       });
 
       characterGrid.appendChild(card);
@@ -166,7 +205,12 @@ document.addEventListener('DOMContentLoaded', () => {
     addCard.innerHTML = '<span>+</span>';
     addCard.addEventListener('click', () => {
       console.log('Add card clicked, redirecting to create.html');
-      window.location.href = 'create.html';
+      try {
+        window.location.href = './create.html';
+      } catch (error) {
+        console.error('Error redirecting to create.html:', error);
+        alert('Ошибка: Не удалось загрузить страницу создания персонажа. Проверьте, что create.html существует.');
+      }
     });
     characterGrid.appendChild(addCard);
   }
