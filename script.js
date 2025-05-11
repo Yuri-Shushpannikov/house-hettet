@@ -31,45 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const damageMax = document.getElementById('damage-max').value;
       const motto = document.getElementById('motto').value;
       const abilities = document.getElementById('abilities').value;
-      const imageFile = document.getElementById('image').files[0];
+      const imageUrl = document.getElementById('image-url').value || 'https://via.placeholder.com/150';
 
-      if (!imageFile) {
-        const character = {
-          name,
-          hp,
-          attack: `${attackMin}-${attackMax}`,
-          damage: `${damageMin}-${damageMax}`,
-          motto,
-          abilities,
-          image: 'https://via.placeholder.com/150', // Fallback image
-        };
-        characters.push(character);
-        localStorage.setItem('characters', JSON.stringify(characters));
-        console.log('Character saved:', character);
-        window.location.href = './index.html';
-      } else {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const character = {
-            name,
-            hp,
-            attack: `${attackMin}-${attackMax}`,
-            damage: `${damageMin}-${damageMax}`,
-            motto,
-            abilities,
-            image: reader.result,
-          };
-          characters.push(character);
-          localStorage.setItem('characters', JSON.stringify(characters));
-          console.log('Character saved:', character);
-          window.location.href = './index.html';
-        };
-        reader.onerror = () => {
-          console.error('Error reading image file');
-          alert('Ошибка при загрузке изображения!');
-        };
-        reader.readAsDataURL(imageFile);
-      }
+      const character = {
+        name,
+        hp,
+        attack: `${attackMin}-${attackMax}`,
+        damage: `${damageMin}-${damageMax}`,
+        motto,
+        abilities,
+        image: imageUrl,
+      };
+      characters.push(character);
+      localStorage.setItem('characters', JSON.stringify(characters));
+      console.log('Character saved:', character);
+      window.location.href = './index.html';
     });
   }
 
@@ -90,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('damage-max').value = character.damage.split('-')[1];
       document.getElementById('motto').value = character.motto;
       document.getElementById('abilities').value = character.abilities || '';
+      document.getElementById('image-url').value = character.image;
     }
 
     editForm.addEventListener('submit', (e) => {
@@ -105,37 +82,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const damageMax = document.getElementById('damage-max').value;
       const motto = document.getElementById('motto').value;
       const abilities = document.getElementById('abilities').value;
-      const imageFile = document.getElementById('image').files[0];
+      const imageUrl = document.getElementById('image-url').value || characters[index].image;
 
-      const updateCharacter = () => {
-        characters[index] = {
-          name,
-          hp,
-          attack: `${attackMin}-${attackMax}`,
-          damage: `${damageMin}-${damageMax}`,
-          motto,
-          abilities,
-          image: characters[index].image, // Keep old image if no new one
-        };
-        localStorage.setItem('characters', JSON.stringify(characters));
-        console.log('Character updated:', characters[index]);
-        window.location.href = './index.html';
+      characters[index] = {
+        name,
+        hp,
+        attack: `${attackMin}-${attackMax}`,
+        damage: `${damageMin}-${damageMax}`,
+        motto,
+        abilities,
+        image: imageUrl,
       };
-
-      if (imageFile) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          characters[index].image = reader.result;
-          updateCharacter();
-        };
-        reader.onerror = () => {
-          console.error('Error reading image file');
-          alert('Ошибка при загрузке изображения!');
-        };
-        reader.readAsDataURL(imageFile);
-      } else {
-        updateCharacter();
-      }
+      localStorage.setItem('characters', JSON.stringify(characters));
+      console.log('Character updated:', characters[index]);
+      window.location.href = './index.html';
     });
 
     // Handle delete button
