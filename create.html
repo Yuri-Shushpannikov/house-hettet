@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добавить персонажа - Дом Хэттет</VYtitle>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-pink-100 text-gray-800">
+  <header class="text-center py-8">
+    <h1 class="text-4xl font-bold text-purple-600">Добавить героя!</h1>
+    <p class="text-lg text-gray-600">Создайте нового персонажа для Дома Хэттет.</p>
+  </header>
+
+  <section class="container mx-auto p-6 max-w-lg">
+    <form id="character-form" class="bg-white p-6 rounded-2xl shadow-lg">
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-purple-600">Имя персонажа</label>
+        <input type="text" id="name" required class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
+      </div>
+      <div class="mb-4">
+        <label for="image-url" class="block text-sm font-medium text-purple-600">URL изображения персонажа</label>
+        <input type="text" id="image-url" placeholder="https://example.com/image.jpg" class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
+      </div>
+      <div class="mb-4">
+        <label for="hp" class="block text-sm font-medium text-purple-600">Здоровье (HP)</label>
+        <input type="number" id="hp" required class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
+      </div>
+      <div class="mb-4 grid grid-cols-2 gap-4">
+        <div>
+          <label for="attack-min" class="block text-sm font-medium text-purple-600">Атака (мин)</label>
+          <input type="number" id="attack-min" required class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
+        </div>
+        <div>
+          <label for="attack-max" class="block text-sm font-medium text-purple-600">Атака (макс)</label>
+          <input type="number" id="attack-max" required class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
+        </div>
+      </div>
+      <div class="mb-4 grid grid-cols-2 gap-4">
+        <div>
+          <label for="damage-min" class="block text-sm font-medium text-purple-600">Урон (мин)</label>
+          <input type="number" id="damage-min" required class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
+        </div>
+        <div>
+          <label for="damage-max" class="block text-sm font-medium text-purple-600">Урон (макс)</label>
+          <input type="number" id="damage-max" required class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="motto" class="block text-sm font-medium text-purple-600">Девиз</label>
+        <textarea id="motto" required class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200"></textarea>
+      </div>
+      <div class="mb-4">
+        <label for="abilities" class="block text-sm font-medium text-purple-600">Способности (необязательно)</label>
+        <textarea id="abilities" class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200"></textarea>
+      </div>
+      <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg w-full">
+        Создать персонажа
+      </button>
+    </form>
+    <a href="index.html" class="block text-center mt-4 text-purple-600 hover:underline">Вернуться в Дом Хэттет</a>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

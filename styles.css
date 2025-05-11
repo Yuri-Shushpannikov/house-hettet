@@ -1,0 +1,123 @@
+/* styles.css */
+body {
+  font-family: 'Impact', 'Arial', sans-serif;
+  background: url('https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa') center/cover fixed;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid #ff99cc;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.5s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  perspective: 1000px;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-front {
+  z-index: 2;
+}
+
+.card-back {
+  background: rgba(255, 204, 255, 0.9);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: rotateY(180deg); /* Counter-rotate to fix mirroring */
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+}
+
+.card-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.3rem;
+}
+
+.card-content p {
+  font-size: 0.8rem;
+  margin: 0.2rem 0;
+}
+
+.edit-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff66b2;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  z-index: 10;
+}
+
+.edit-btn:hover {
+  background: #ff3399;
+}
+
+.add-card {
+  background: #ffccff;
+  border: 3px dashed #ff66b2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  aspect-ratio: 2/3;
+}
+
+.add-card:hover {
+  background: #ffb3ff;
+}
+
+.add-card span {
+  font-size: 3rem;
+  color: #ff3399;
+}
