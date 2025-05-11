@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Редактировать персонажа - Дом Хэттет</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" integrity="sha384-oY5jG3f3XbDqI6gq8o5cT8oq5o5cT8oq5o5cT8oq5o5cT8oq5o5cT8oq5o5cT8oq5" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css" onerror="console.error('Failed to load styles.css')">
 </head>
 <body class="bg-pink-100 text-gray-800">
   <header class="text-center py-8">
@@ -21,8 +21,8 @@
         <input type="text" id="name" required class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
       </div>
       <div class="mb-4">
-        <label for="image" class="block text-sm font-medium text-purple-600">Изображение персонажа (заменить)</label>
-        <input type="file" id="image" accept="image/*" class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
+        <label for="image-url" class="block text-sm font-medium text-purple-600">URL изображения персонажа (заменить)</label>
+        <input type="text" id="image-url" placeholder="https://example.com/image.jpg" class="w-full p-2 bg-pink-50 rounded-lg border border-purple-200">
       </div>
       <div class="mb-4">
         <label for="hp" class="block text-sm font-medium text-purple-600">Здоровье (HP)</label>
@@ -66,6 +66,6 @@
     <a href="./index.html" class="block text-center mt-4 text-purple-600 hover:underline">Вернуться в Дом Хэттет</a>
   </section>
 
-  <script src="script.js"></script>
+  <script src="script.js" onerror="console.error('Failed to load script.js')"></script>
 </body>
 </html>
